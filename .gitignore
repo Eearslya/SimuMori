@@ -1,5 +1,6 @@
 [Bb]uild/
-Data/
+Data/*
+!Data/.keep
 *.bin
 *.json
 *.tsv
