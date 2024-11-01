@@ -1,0 +1,5 @@
+[Bb]uild/
+Data/
+*.bin
+*.json
+*.tsv
