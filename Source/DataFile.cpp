@@ -5,8 +5,7 @@ DataFile::DataFile(const std::filesystem::path& filePath)
 		: _filePath(std::filesystem::path(filePath).replace_extension()) {}
 
 auto DataFile::Export() -> bool {
-	nlohmann::json dataRoot;
-	SaveJSON(dataRoot);
+	nlohmann::json dataRoot = SaveJSON();
 
 	std::ofstream outFile(JSONPath());
 	if (!outFile.is_open()) { return false; }
@@ -16,13 +15,16 @@ auto DataFile::Export() -> bool {
 	return true;
 }
 
-auto DataFile::Import() -> bool {
+auto DataFile::Import(bool forceJson) -> bool {
 	const auto jsonPath = JSONPath();
 	const auto binPath  = BinaryPath();
 
 	const auto jsonExist = std::filesystem::exists(jsonPath);
 	const auto binExist  = std::filesystem::exists(binPath);
-	if (!jsonExist && !binExist) { return false; }
+	if (!jsonExist && !binExist) {
+		std::cerr << "Failed to open data file: No JSON or Binary found!" << std::endl;
+		return false;
+	}
 
 	bool loadBinary = binExist;
 	if (jsonExist && binExist) {
@@ -32,11 +34,11 @@ auto DataFile::Import() -> bool {
 		if (binTime < jsonTime) { loadBinary = false; }
 	}
 
+	if (forceJson) { loadBinary = false; }
 	if (loadBinary) {
-		std::ifstream binFile(binPath, std::ios::binary);
-		if (!binFile.is_open()) { return false; }
+		DataBuffer buffer(binPath);
 
-		return LoadBinary(binFile);
+		return LoadBinary(buffer);
 	} else {
 		std::ifstream jsonFile(jsonPath);
 		if (!jsonFile.is_open()) { return false; }
@@ -46,23 +48,19 @@ auto DataFile::Import() -> bool {
 		jsonFile.close();
 
 		// Save the data to binary format after loading, for faster subsequent loads.
-		std::ofstream binFile(binPath);
-		if (binFile.is_open()) {
-			SaveBinary(binFile);
-			binFile.close();
-		}
+		DataBuffer buffer;
+		SaveBinary(buffer);
+		buffer.WriteToFile(binPath);
 	}
 
 	return true;
 }
 
 auto DataFile::BinaryPath() const noexcept -> std::filesystem::path {
-	auto tempPath = _filePath;
-
-	return tempPath.replace_extension(".bin");
+	return std::filesystem::path(_filePath).replace_extension(".bin");
 }
 
 auto DataFile::JSONPath() const noexcept -> std::filesystem::path {
-	return _filePath;
+	return std::filesystem::path(_filePath).replace_extension(".json");
 }
 }  // namespace SimuMori

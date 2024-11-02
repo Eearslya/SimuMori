@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 
 #include "Common.hpp"
+#include "DataBuffer.hpp"
 
 namespace SimuMori {
 class DataFile {
@@ -11,16 +12,16 @@ class DataFile {
 	DataFile(const std::filesystem::path& filePath);
 
 	auto Export() -> bool;
-	auto Import() -> bool;
+	auto Import(bool forceJson = false) -> bool;
 
 	auto BinaryPath() const noexcept -> std::filesystem::path;
 	auto JSONPath() const noexcept -> std::filesystem::path;
 
  protected:
-	virtual auto LoadBinary(std::istream&) -> bool       = 0;
+	virtual auto LoadBinary(const DataBuffer&) -> bool   = 0;
 	virtual auto LoadJSON(const nlohmann::json&) -> bool = 0;
-	virtual auto SaveBinary(std::ostream&) const -> void = 0;
-	virtual auto SaveJSON(nlohmann::json&) const -> void = 0;
+	virtual auto SaveBinary(DataBuffer&) const -> void   = 0;
+	virtual auto SaveJSON() const -> nlohmann::json      = 0;
 
  private:
 	std::filesystem::path _filePath;

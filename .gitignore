@@ -1,3 +1,4 @@
+.cache/
 [Bb]uild/
 Data/*
 !Data/.keep
