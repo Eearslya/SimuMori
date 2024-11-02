@@ -8,6 +8,8 @@
 #include <iostream>
 #include <memory>
 #include <nlohmann/json.hpp>
+#include <ranges>
+#include <span>
 #include <string>
 #include <unordered_map>
 #include <utility>

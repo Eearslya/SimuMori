@@ -3,6 +3,7 @@ target_sources(SimuMori PRIVATE
   SimuMori.cpp
   StudyEvent.cpp
   StudyItem.cpp
+  StudyList.cpp
 )
 
 add_subdirectory(Data)

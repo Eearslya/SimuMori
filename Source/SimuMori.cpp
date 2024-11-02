@@ -1,6 +1,8 @@
 #include <SimuMori/Common.hpp>
 #include <SimuMori/Data/StudyEventDataFile.hpp>
 #include <SimuMori/Data/StudyItemDataFile.hpp>
+#include <SimuMori/Simulation.hpp>
+#include <SimuMori/StudyList.hpp>
 #include <SimuMori/Time.hpp>
 
 #include "CrashHandler.hpp"
@@ -11,8 +13,11 @@ auto main(int argc, const char** argv) -> int {
 	CrashHandler::Initialize();
 
 	try {
+		Simulation sim;
+		StudyList mainStudyList("MaruMori Main Study List");
+
 		StudyEventDataFile history("Data/kanjisrshistory-anon.json");
-		StudyItemDataFile mainStudylist("Data/studylist.json");
+		StudyItemDataFile studyListData("Data/studylist.json");
 
 		{
 			ZoneTimer("Kanji SRS History Loaded");
@@ -20,7 +25,8 @@ auto main(int argc, const char** argv) -> int {
 		}
 		{
 			ZoneTimer("Main Study List Loaded");
-			mainStudylist.Import();
+			studyListData.Import();
+			mainStudyList.AddItems(studyListData.All());
 		}
 	} catch (const std::exception& e) {
 		std::cerr << std::endl << std::endl;
