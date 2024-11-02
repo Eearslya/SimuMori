@@ -1,4 +1,4 @@
-#include "StudyItem.hpp"
+#include <SimuMori/StudyItem.hpp>
 
 namespace SimuMori {
 StudyItem::Identifier::Identifier(std::string_view stringId) {

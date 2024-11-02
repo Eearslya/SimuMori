@@ -1,8 +1,9 @@
-#include "Common.hpp"
+#include <SimuMori/Common.hpp>
+#include <SimuMori/Data/StudyEventDataFile.hpp>
+#include <SimuMori/Data/StudyItemDataFile.hpp>
+#include <SimuMori/Time.hpp>
+
 #include "CrashHandler.hpp"
-#include "StudyEventHistory.hpp"
-#include "StudyItemDataFile.hpp"
-#include "Time.hpp"
 
 using namespace SimuMori;
 
@@ -10,7 +11,7 @@ auto main(int argc, const char** argv) -> int {
 	CrashHandler::Initialize();
 
 	try {
-		StudyEventHistory history("Data/kanjisrshistory-anon.json");
+		StudyEventDataFile history("Data/kanjisrshistory-anon.json");
 		StudyItemDataFile mainStudylist("Data/studylist.json");
 
 		{

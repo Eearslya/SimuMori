@@ -1,4 +1,4 @@
-#include "StudyEvent.hpp"
+#include <SimuMori/StudyEvent.hpp>
 
 namespace SimuMori {
 auto StudyEvent::Export() const -> nlohmann::json {

@@ -14,6 +14,9 @@ FetchContent_MakeAvailable(json)
 add_executable(SimuMori)
 add_subdirectory(Source)
 
+target_include_directories(SimuMori
+  PRIVATE Include
+)
 target_link_libraries(SimuMori
   PRIVATE nlohmann_json
 )

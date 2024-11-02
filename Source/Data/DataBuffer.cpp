@@ -1,4 +1,4 @@
-#include "DataBuffer.hpp"
+#include <SimuMori/Data/DataBuffer.hpp>
 
 namespace SimuMori {
 template <typename T>

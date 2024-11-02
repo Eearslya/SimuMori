@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common.hpp"
-#include "DataBuffer.hpp"
+#include <SimuMori/Common.hpp>
+#include <SimuMori/Data/DataBuffer.hpp>
 
 namespace SimuMori {
 class StudyItem {

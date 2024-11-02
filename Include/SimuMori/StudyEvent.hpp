@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Common.hpp"
-#include "DataBuffer.hpp"
-#include "StudyItem.hpp"
+#include <SimuMori/Common.hpp>
+#include <SimuMori/Data/DataBuffer.hpp>
+#include <SimuMori/StudyItem.hpp>
 
 namespace SimuMori {
 enum StudyEventAction : U8 {

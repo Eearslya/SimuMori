@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Common.hpp"
+#include <SimuMori/Common.hpp>
 
 namespace SimuMori {
 class DecodeException : public std::runtime_error {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Common.hpp"
-#include "DataFile.hpp"
+#include <SimuMori/Common.hpp>
+#include <SimuMori/Data/DataFile.hpp>
 
 namespace SimuMori {
 template <typename T>

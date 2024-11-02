@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ArrayDataFile.hpp"
-#include "Common.hpp"
-#include "StudyItem.hpp"
+#include <SimuMori/Common.hpp>
+#include <SimuMori/Data/ArrayDataFile.hpp>
+#include <SimuMori/StudyItem.hpp>
 
 namespace SimuMori {
 class StudyItemDataFile : public ArrayDataFile<StudyItem::Identifier> {
