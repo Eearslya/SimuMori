@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SimuMori/Log.hpp>
 #include <algorithm>
 #include <array>
 #include <cstdint>
@@ -9,6 +10,7 @@
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <ranges>
+#include <set>
 #include <span>
 #include <string>
 #include <unordered_map>

@@ -7,6 +7,6 @@
 namespace SimuMori {
 class StudyItemDataFile : public ArrayDataFile<StudyItem::Identifier> {
  public:
-	StudyItemDataFile(const std::filesystem::path& filePath) : ArrayDataFile(filePath) {}
+	StudyItemDataFile(std::string_view fileName) : ArrayDataFile(fileName) {}
 };
 }  // namespace SimuMori

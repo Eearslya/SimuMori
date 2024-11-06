@@ -14,20 +14,17 @@ auto main(int argc, const char** argv) -> int {
 
 	try {
 		Simulation sim;
-		StudyList mainStudyList("MaruMori Main Study List");
+		auto mainStudyList = sim.AddStudyList("MaruMori Main Study List");
 
-		StudyEventDataFile history("Data/kanjisrshistory-anon.json");
-		StudyItemDataFile studyListData("Data/studylist.json");
+		StudyEventDataFile history("kanjisrshistory-anon");
+		StudyItemDataFile studyListData("studylist");
 
-		{
-			ZoneTimer("Kanji SRS History Loaded");
-			history.Import();
-		}
-		{
-			ZoneTimer("Main Study List Loaded");
-			studyListData.Import();
-			mainStudyList.AddItems(studyListData.All());
-		}
+		history.Import();
+		studyListData.Import();
+
+		mainStudyList.AddItems(studyListData.All());
+
+		sim.RunEvents(history.All());
 	} catch (const std::exception& e) {
 		std::cerr << std::endl << std::endl;
 		std::cerr << "===================================" << std::endl;

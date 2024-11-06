@@ -20,7 +20,7 @@ class Time {
 	}
 
 	template <typename Rep = float>
-	[[nodiscard]] static constexpr auto Hour(const Rep hours) noexcept -> Time {
+	[[nodiscard]] static constexpr auto Hours(const Rep hours) noexcept -> Time {
 		return Minutes(hours * static_cast<Rep>(60));
 	}
 	template <typename Rep = float>
@@ -40,6 +40,14 @@ class Time {
 		return Time(std::chrono::duration<Rep, std::micro>(microseconds));
 	}
 
+	template <typename T = float>
+	[[nodiscard]] constexpr auto AsHours() const noexcept -> T {
+		return static_cast<T>(_value.count()) / static_cast<T>(3'600'000'000);
+	}
+	template <typename T = float>
+	[[nodiscard]] constexpr auto AsMinutes() const noexcept -> T {
+		return static_cast<T>(_value.count()) / static_cast<T>(60'000'000);
+	}
 	template <typename T = float>
 	[[nodiscard]] constexpr auto AsSeconds() const noexcept -> T {
 		return static_cast<T>(_value.count()) / static_cast<T>(1'000'000);

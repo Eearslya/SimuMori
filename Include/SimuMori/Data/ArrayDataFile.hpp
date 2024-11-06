@@ -2,12 +2,14 @@
 
 #include <SimuMori/Common.hpp>
 #include <SimuMori/Data/DataFile.hpp>
+#include <SimuMori/Data/DataItem.hpp>
 
 namespace SimuMori {
 template <typename T>
+	requires(std::is_base_of_v<DataItem, T>)
 class ArrayDataFile : public DataFile {
  public:
-	ArrayDataFile(const std::filesystem::path& filePath) : DataFile(filePath) {}
+	ArrayDataFile(std::string_view fileName) : DataFile(fileName) {}
 
 	auto All() -> std::vector<T>& {
 		return _dataItems;
@@ -31,7 +33,7 @@ class ArrayDataFile : public DataFile {
 		return true;
 	}
 
-	virtual auto LoadJSON(const nlohmann::json& jsonData) -> bool override {
+	virtual auto LoadJson(const nlohmann::json& jsonData) -> bool override {
 		if (!jsonData.is_array()) {
 			std::cerr << "Invalid data file array format." << std::endl;
 			return false;
@@ -51,7 +53,7 @@ class ArrayDataFile : public DataFile {
 		for (const auto& item : _dataItems) { item.Save(buf); }
 	}
 
-	virtual auto SaveJSON() const -> nlohmann::json override {
+	virtual auto SaveJson() const -> nlohmann::json override {
 		auto jsonData = nlohmann::json::array();
 		for (const auto& item : _dataItems) { jsonData.push_back(item.Export()); }
 

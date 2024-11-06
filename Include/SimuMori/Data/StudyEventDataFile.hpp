@@ -7,6 +7,6 @@
 namespace SimuMori {
 class StudyEventDataFile : public ArrayDataFile<StudyEvent> {
  public:
-	StudyEventDataFile(const std::filesystem::path& filePath) : ArrayDataFile(filePath) {}
+	StudyEventDataFile(std::string_view fileName) : ArrayDataFile(fileName) {}
 };
 }  // namespace SimuMori
